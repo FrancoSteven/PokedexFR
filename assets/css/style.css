@@ -1,0 +1,20 @@
+
+        :root {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .bg-fire {
+            background-color: #ffddc1 !important;
+        }
+
+        .bg-water {
+            background-color: #c1e0ff !important;
+        }
+
+        .bg-grass {
+            background-color: #d1ffc1 !important;
+        }
