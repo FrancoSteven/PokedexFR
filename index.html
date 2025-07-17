@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Pokédex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .bg-fire {
+            background-color: #ffddc1 !important;
+        }
+
+        .bg-water {
+            background-color: #c1e0ff !important;
+        }
+
+        .bg-grass {
+            background-color: #d1ffc1 !important;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f8f9fa;">
+    <div class="container py-4">
+        <h1 class="text-center mb-2">Mini Pokédex</h1>
+        <h1 class="text-center mb-4">Bienvenido entrenador</h1>
+
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <button id="agregarBtn" class="btn btn-success">Agregar Pokémon</button>
+            <button id="quitarBtn" class="btn btn-danger">Quitar Último</button>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+                <input id="buscador" type="text" class="form-control mb-2" placeholder="Buscar por nombre o ID">
+                <button id="buscarBtn" class="btn btn-primary w-100">Buscar Pokémon</button>
+            </div>
+        </div>
+
+        <div id="pokedex" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            <!-- Cartas -->
+        </div>
+    </div>
+
+    <script>
+        const contenedor = document.getElementById("pokedex");
+        const agregarBtn = document.getElementById("agregarBtn");
+        const quitarBtn = document.getElementById("quitarBtn");
+        const buscarBtn = document.getElementById("buscarBtn");
+        const buscador = document.getElementById("buscador");
+
+        let contadorPokemon = 1;
+
+        async function obtenerPokemon(id) {
+            try {
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+                const data = await res.json();
+
+                return {
+                    nombre: data.name,
+                    imagen: data.sprites.other["official-artwork"].front_default,
+                    tipo: data.types.map(t => t.type.name).join(", "),
+                    tipos: data.types.map(t => t.type.name),
+                    experiencia: data.base_experience,
+                    peso: data.weight,
+                    altura: data.height
+                };
+            } catch (error) {
+                alert("Pokémon no encontrado");
+                return null;
+            }
+        }
+
+        function crearCarta(pokemon) {
+            const div = document.createElement("div");
+            div.classList.add("col");
+
+            const tipoPrincipal = pokemon.tipos[0];
+            const tipoClase = tipoPrincipal ? `bg-${tipoPrincipal}` : "";
+
+            div.innerHTML = \`
+            <div class="card h-100 shadow-sm \${tipoClase}">
+                <img src="\${pokemon.imagen}" class="card-img-top bg-white" style="object-fit: contain; height: 200px;" alt="\${pokemon.nombre}">
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">\${pokemon.nombre}</h5>
+                    <p class="card-text"><strong>Tipo:</strong> \${pokemon.tipo}</p>
+                    <p class="card-text"><strong>Exp:</strong> \${pokemon.experiencia}</p>
+                    <p class="card-text"><strong>Peso:</strong> \${pokemon.peso} | <strong>Altura:</strong> \${pokemon.altura}</p>
+                </div>
+            </div>
+            \`;
+
+            return div;
+        }
+
+        agregarBtn.addEventListener("click", async () => {
+            const pokemon = await obtenerPokemon(contadorPokemon);
+            if (pokemon) {
+                const carta = crearCarta(pokemon);
+                contenedor.appendChild(carta);
+                contadorPokemon++;
+            }
+        });
+
+        quitarBtn.addEventListener("click", () => {
+            const cartas = contenedor.querySelectorAll(".col");
+            if (cartas.length > 0) {
+                cartas[cartas.length - 1].remove();
+                contadorPokemon--;
+            }
+        });
+
+        buscarBtn.addEventListener("click", async () => {
+            const valor = buscador.value.toLowerCase().trim();
+            if (!valor) return;
+
+            const pokemon = await obtenerPokemon(valor);
+            if (pokemon) {
+                const carta = crearCarta(pokemon);
+                contenedor.appendChild(carta);
+            }
+        });
+    </script>
+</body>
+
+</html>
