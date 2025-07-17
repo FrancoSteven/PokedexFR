@@ -1,13 +1,22 @@
+
+const contenedor = document.getElementById("pokedex");
+
 // REFERENCIA AL DOM
         const contenedor = document.getElementById("pokedex");
+
         const agregarBtn = document.getElementById("agregarBtn");
         const quitarBtn = document.getElementById("quitarBtn");
         const buscarBtn = document.getElementById("buscarBtn");
         const buscador = document.getElementById("buscador");
 
+
+        let contadorPokemon = 1;
+
+
         let contadorPokemon = 1; // Empeazamos desde la ID 1
 
 // Funcion para consumir una API
+
         async function obtenerPokemon(id) {
             try {
                 const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -21,7 +30,11 @@
                     experiencia: data.base_experience,
                     peso: data.weight,
                     altura: data.height,
+
+                                        habilidades: data.abilities.map(a => a.ability.name), // <- Habilidades añadidas
+
                     habilidades: data.abilities.map(a => a.ability.name), // <- Habilidades añadidas
+
                     habilidadesOcultas: data.abilities
                     .filter(a => a.is_hidden)
                     .map(a => a.ability.name) // Habilidades ocultas
@@ -32,7 +45,9 @@
             }
         }
 
+=======
 /// funcion para crear cartas con BOOTSTRAP
+
         function crearCarta(pokemon) {
             const div = document.createElement("div");
             div.classList.add("col");
@@ -41,6 +56,18 @@
             const tipoClase = tipoPrincipal ? `bg-${tipoPrincipal}` : "";
 
             div.innerHTML = `
+
+                <div class="card h-100 shadow-sm ${tipoClase}">
+                    <img src= ${pokemon.imagen} class="card-img-top bg-white style="object-fit: contain; height: 200px; alt="${pokemon.nombre}>
+                    <div class="card-body">
+                        <h5 class="card-title text-capitalize">${pokemon.nombre}</h5>
+                        <p class="card-text"><strong>Tipo:</strong> ${pokemon.tipo}</p>
+                        <p class="card-text"><strong>Exp:</strong> ${pokemon.experiencia}</p>
+                        <p class="card-text"><strong>Peso:</strong> ${pokemon.peso} | <strong>Altura:</strong> ${pokemon.altura}</p>
+                        <p class="card-text"><strong>Habilidad:</strong> ${pokemon.habilidades}</p>
+                    </div>
+                </div>
+=======
             <div class="card h-100 shadow-sm ${tipoClase}">
                 <img src="${pokemon.imagen}" class="card-img-top bg-white" style="object-fit: contain; height: 200px;" alt="${pokemon.nombre}">
                 <div class="card-body">
@@ -52,6 +79,7 @@
 
                 </div>
             </div>
+
             `;
 
             return div;
@@ -83,4 +111,8 @@
                 const carta = crearCarta(pokemon);
                 contenedor.appendChild(carta);
             }
+
         });
+=======
+        });
+
