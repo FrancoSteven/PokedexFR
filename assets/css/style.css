@@ -1,25 +1,123 @@
+:root {
+    font-family: 'Segoe UI', sans-serif;
+}
 
-        :root {
-            font-family: 'Segoe UI', sans-serif;
-        }
+body {
+    padding-bottom: 20px; /* Espacio extra en la parte inferior para dispositivos móviles */
+}
 
-        .card-title {
-            font-weight: bold;
-        }
+.card-title {
+    font-weight: bold;
+}
 
-        .bg-fire {
-            background-color: #ffddc1 !important;
-        }
+/* Colores de fondo de las tarjetas por tipo */
+.bg-normal { background-color: #A8A77A !important; }
+.bg-fire { background-color: #EE8130 !important; }
+.bg-water { background-color: #6390F0 !important; }
+.bg-electric { background-color: #F7D02C !important; }
+.bg-grass { background-color: #7AC74C !important; }
+.bg-ice { background-color: #96D9D6 !important; }
+.bg-fighting { background-color: #C22E28 !important; }
+.bg-poison { background-color: #A33EA1 !important; }
+.bg-ground { background-color: #E2BF65 !important; }
+.bg-flying { background-color: #A98FF3 !important; }
+.bg-psychic { background-color: #F95587 !important; }
+.bg-bug { background-color: #A6B91A !important; }
+.bg-rock { background-color: #B6A136 !important; }
+.bg-ghost { background-color: #735797 !important; }
+.bg-dragon { background-color: #6F35FC !important; }
+.bg-steel { background-color: #B7B7CE !important; }
+.bg-dark { background-color: #705746 !important; }
+.bg-fairy { background-color: #D685AD !important; }
 
-        .bg-water {
-            background-color: #c1e0ff !important;
-        }
+/* Estilo para el botón de favorito */
+.favorito-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    z-index: 10; /* Asegura que el botón esté sobre la imagen */
+}
 
-        .bg-grass {
-            background-color: #d1ffc1 !important;
+.favorito-btn:hover {
+    transform: scale(1.1);
+}
 
-        }      
-          .bg-electric {
-            background-color: yellow !important;
-        }
+/* --- Animaciones --- */
 
+/* Animación de entrada para las tarjetas de Pokémon */
+.pokemon-card-animate {
+    animation: fadeInScale 0.5s ease-out forwards;
+    opacity: 0; /* Inicialmente oculto para la animación */
+    transform: scale(0.9); /* Inicialmente un poco más pequeño */
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animación de salida para las tarjetas de Pokémon al quitarlas */
+.pokemon-card-remove {
+    animation: fadeOutScale 0.5s ease-in forwards;
+}
+
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+/* --- Responsividad (Bootstrap ya hace gran parte, pero ajustes finos) --- */
+
+/* Ajustes para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Hace que los botones sean de ancho completo y se apilen */
+    .d-flex.flex-wrap.justify-content-center.gap-3.mb-4 .btn {
+        width: 100%;
+        margin-bottom: 8px; /* Espacio entre botones apilados */
+    }
+
+    /* Ajuste para el buscador y filtro */
+    .col-12.col-md-8.offset-md-2.col-lg-6.offset-lg-3 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Las tarjetas ya se adaptan con row-cols-1, pero se puede ajustar el gap si es necesario */
+    .row-cols-1 > * {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+/* Ajustes para pantallas medianas (tabletas) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Los botones y el buscador ya deberían verse bien con las clases de Bootstrap */
+    /* Podrías ajustar los tamaños de columna si lo ves necesario */
+    .row-cols-md-3 > * {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}

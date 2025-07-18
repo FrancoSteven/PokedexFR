@@ -3,13 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mini Pokédex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Mini Pokédex</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <link rel="stylesheet" href="assets/css/style.css"> <!-- al css -->
-
 </head>
 
 <body class="bg-light">
@@ -17,21 +13,45 @@
         <h1 class="text-center mb-2">Mini Pokédex</h1>
         <h1 class="text-center mb-4">Bienvenido entrenador</h1>
 
-        <div class="d-flex justify-content-center gap-3 mb-4">
-            <button id="agregarBtn" class="btn btn-success">Agregar Pokémon</button>
-            <button id="quitarBtn" class="btn btn-danger">Quitar Último</button>
+        <div class="d-flex flex-wrap justify-content-center gap-3 mb-4"> 
+            <button id="agregarBtn" class="btn btn-success flex-grow-1 flex-md-grow-0">Agregar Pokémon</button>
+            <button id="quitarBtn" class="btn btn-danger flex-grow-1 flex-md-grow-0">Quitar Último</button>
+            <button id="limpiarPokedexBtn" class="btn btn-secondary flex-grow-1 flex-md-grow-0">Limpiar Pokédex</button> 
+            <button id="favoritosBtn" class="btn btn-warning flex-grow-1 flex-md-grow-0">Ver Favoritos</button>
         </div>
 
         <div class="row mb-4">
-            <div class="col-md-6 offset-md-3">
-                <input id="buscador" type="text" class="form-control mb-2" placeholder="Buscar por nombre o ID">
-                <button id="buscarBtn" class="btn btn-primary w-100">Buscar Pokémon</button>
+            <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3"> <input id="buscador" type="text" class="form-control mb-2" placeholder="Buscar por nombre o ID">
+                <button id="buscarBtn" class="btn btn-primary w-100 mb-3">Buscar Pokémon</button>
+                <select id="filtroTipo" class="form-select">
+                    <option value="mostrarPokedex">Mostrar todos los Pokémon</option>
+                    <option value="fire">Tipo Fuego</option>
+                    <option value="water">Tipo Agua</option>
+                    <option value="grass">Tipo Planta</option>
+                    <option value="electric">Tipo Eléctrico</option>
+                    <option value="normal">Tipo Normal</option>
+                    <option value="bug">Tipo Bicho</option>
+                    <option value="poison">Tipo Veneno</option>
+                    <option value="flying">Tipo Volador</option>
+                    <option value="ground">Tipo Tierra</option>
+                    <option value="rock">Tipo Roca</option>
+                    <option value="ghost">Tipo Fantasma</option>
+                    <option value="steel">Tipo Acero</option>
+                    <option value="fighting">Tipo Lucha</option>
+                    <option value="psychic">Tipo Psíquico</option>
+                    <option value="ice">Tipo Hielo</option>
+                    <option value="dragon">Tipo Dragón</option>
+                    <option value="dark">Tipo Siniestro</option>
+                    <option value="fairy">Tipo Hada</option>
+                    </select>
             </div>
         </div>
 
-        <div id="pokedex" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-            <!-- Cartas -->
-        </div>
+        <div id="pokedex" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            </div>
+
+        <div id="favoritosContainer" class="d-none">
+            </div>
     </div>
 
     <script src="assets/js/app.js"></script>
